@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Employee Dashboard</title>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+</h:head>
+<h:body>
+	<h:form>
+		<p>Welcome #{login.user}</p>
+		<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
+	</h:form>
+	<p:layout style="min-width:400px;min-height:200px;">
+		<p:layoutUnit position="west" resizable="true" size="100" minSize="40"
+			maxSize="200">
+        West
+    </p:layoutUnit>
+		<p:layoutUnit position="center">
+			<p:growl id="messages"></p:growl>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Enter Employee Name:"></p:outputLabel>
+				<p:inputText value="#{registerEmployee.employee.employeeName}"></p:inputText>
+				<p:outputLabel value="Enter Employee Hire Date:"></p:outputLabel>
+				<p:calendar value="#{registerEmployee.employee.employeeHireDate}"></p:calendar>
+				<p:outputLabel value="Enter Employee Salary:"></p:outputLabel>
+				<p:inputText value="#{registerEmployee.employee.employeeSalary}"></p:inputText>
+			</p:panelGrid>
+			<p:commandButton value="Register"
+				action="#{registerEmployee.register}" update="messages"></p:commandButton>
+
+			<br />
+			<br />
+			<p:panel id="listEmployee" header="List Employee" footer=""
+				style="margin-bottom:20px">
+
+				<!-- <p:dataTable var="emp" value="#{employeeManagerBean.employeeList}">
+					<p:column headerText="Id">
+						<h:outputText value="#{emp.employeeId}" />
+					</p:column>
+
+					<p:column headerText="Name">
+						<h:outputText value="#{emp.employeeName}" />
+					</p:column>
+
+					<p:column headerText="Join Date">
+						<h:outputText value="#{emp.employeeHireDate}" />
+					</p:column>
+
+					<p:column headerText="Salary">
+						<h:outputText value="#{emp.employeeSalary}" />
+					</p:column>
+				</p:dataTable> -->
+			</p:panel>
+		</p:layoutUnit>
+	</p:layout>
+
+</h:body>
+</html>

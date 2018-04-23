@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>Register Employee</title>
+</h:head>
+<h:body>
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="50">
+			<h:outputText value="" />
+		</p:layoutUnit>
+
+		<!-- <p:layoutUnit position="south" size="100" header="Bottom"
+			resizable="true" closable="true" collapsible="true">
+			<h:outputText value="South unit content." />
+		</p:layoutUnit> -->
+
+		<p:layoutUnit position="west" size="200">
+			<h:outputText value="" />
+		</p:layoutUnit>
+
+		<!-- <p:layoutUnit position="east" size="1">
+			<h:outputText value="Right unit content." />
+		</p:layoutUnit>  -->
+
+		<p:layoutUnit position="center">
+			<h:form id="registerForm">
+
+				<p:growl id="messages"></p:growl>
+				<h:panelGrid columns="2" style="margin-top:20px;margin-left:20px">
+					<p:outputLabel value="Enter Employee Name:"></p:outputLabel>
+					<p:inputText value="#{registerEmployee.employee.employeeName}"
+						required="true" requiredMessage="Employee Name is mandatory"></p:inputText>
+					
+					<p:outputLabel value="Enter Employee Hire Date:"></p:outputLabel>
+					<p:calendar value="#{registerEmployee.employee.employeeHireDate}"
+						required="true" pattern="#{registerEmployee.datePattern}">
+					</p:calendar>
+					
+					<p:outputLabel value="Enter Employee Salary:"></p:outputLabel>
+					<p:inputText value="#{registerEmployee.employee.employeeSalary}"
+						required="true"></p:inputText>
+				</h:panelGrid>
+				<p:commandButton value="Register"
+					style="margin-top:10px;margin-left:320px"
+					action="#{registerEmployee.register}"
+					update="registerForm listForm" ajax="true">
+				</p:commandButton>
+
+			</h:form>
+			<h:form id="listForm">
+				<p:panel id="employeePanel" header="Employees Form"
+					style="margin:20px">
+					<f:facet name="options">
+						<p:menu>
+							<p:submenu label="Options">
+								<p:menuitem value="Delete"
+									actionListener="#{registerEmployee.delete}" ajax="true"
+									icon="ui-icon-close" update="listForm" />
+							</p:submenu>
+						</p:menu>
+					</f:facet>
+					<p:dataTable var="emp" value="#{registerEmployee.employeeList}"
+						selection="#{registerEmployee.selectedEmployees}"
+						rowKey="#{emp.employeeId}" rows="5" paginator="true" paginatorPosition="bottom">
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Id">
+							<h:outputText value="#{emp.employeeId}" />
+						</p:column>
+
+						<p:column headerText="Name">
+							<h:outputText value="#{emp.employeeName}" />
+						</p:column>
+
+						<p:column headerText="Join Date">
+							<h:outputText value="#{emp.employeeHireDate}">
+								<f:convertDateTime pattern="#{registerEmployee.datePattern}" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Salary">
+							<h:outputText value="#{emp.employeeSalary}" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
+</h:body>
+</html>
